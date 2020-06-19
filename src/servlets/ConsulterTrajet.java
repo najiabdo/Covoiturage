@@ -36,8 +36,6 @@ protected void service(HttpServletRequest request, HttpServletResponse response)
 		HttpSession ses = request.getSession(false);
 		List<Trajet> t=null;
 		Trajet tt=null;
-		String erreur="**";
-		if(ses!=null)
 			if(request.getParameter("idTT")==null)
 			{
 				if(request.getParameter("depart")!=null && request.getParameter("arrive")!=null)
@@ -55,14 +53,11 @@ protected void service(HttpServletRequest request, HttpServletResponse response)
 			else
 			{
 				tt=DAO.getTrajetById(Integer.parseInt(request.getParameter("idTT")));
-				ses.setAttribute("tt",tt);
+				ses.setAttribute("tt", tt);
 				request.setAttribute("deja", "deja inscrit");
-				getServletContext().getRequestDispatcher("/WEB-INF/infoTrajet.jsp").forward(request, response);   
+				getServletContext().getRequestDispatcher("/WEB-INF/infoTrajet.jsp").forward(request, response); 
 			}
-		else
-		{
-			getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
-		}
+		
 	}
 
 }

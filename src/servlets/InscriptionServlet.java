@@ -46,9 +46,9 @@ public class InscriptionServlet extends HttpServlet {
 					getServletContext().getRequestDispatcher("/WEB-INF/inscription1.jsp").forward(request, response);   
 				else
 				{
-					HttpSession s=request.getSession(true);
-					s.setAttribute("id",request.getParameter("id"));
-					s.setAttribute("regions", DAO.toutLesRegion());
+					HttpSession ses=request.getSession(true);
+					ses.setAttribute("id",request.getParameter("id"));
+					ses.setAttribute("regions", DAO.toutLesRegion());
 					getServletContext().getRequestDispatcher("/WEB-INF/inscription2.jsp").forward(request, response);   
 				}
 			}else

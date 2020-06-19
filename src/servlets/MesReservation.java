@@ -28,7 +28,7 @@ public class MesReservation extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
          HttpSession ses=request.getSession(false);
          Utilisateur u=(Utilisateur)ses.getAttribute("utilisateur");
-         if(ses!=null) {
+         if(ses.getAttribute("utilisateur")!=null) {
         	 if(request.getParameter("annulation")!=null && request.getParameter("id")!=null) {
   				if(request.getParameter("annulation").equalsIgnoreCase("oui")){
   					DAO.deleteReservation(Integer.parseInt(request.getParameter("id")));

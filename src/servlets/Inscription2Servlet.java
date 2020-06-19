@@ -36,13 +36,13 @@ public class Inscription2Servlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String erreur="**";
-	    HttpSession s=request.getSession(false);
-	    String id=(String) s.getAttribute("id");
+	    HttpSession ses=request.getSession(false);
+	    String id=(String) ses.getAttribute("id");
 	    Vehicule v=null;
 	    Authentification a=null;
 	    Utilisateur u=null;
 	    //si un utilisateur essaie de passer a cette servlet sans utiliser la premiere (InscriptionServlet)
-	    if(s!=null)
+	    if(ses.getAttribute("id")!=null)
 	    //controle de saisie
 		   {
 	    	
@@ -105,7 +105,7 @@ public class Inscription2Servlet extends HttpServlet {
 			    DAO.creeVehicule(v);
 		    	DAO.updateAuthentification(a);
 		    	DAO.creeUtilisateur(u);
-		    	s.invalidate();
+		    	ses.invalidate();
 			    }
 			    else
 			    {

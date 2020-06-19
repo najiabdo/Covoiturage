@@ -74,7 +74,7 @@ protected void service(HttpServletRequest request, HttpServletResponse response)
 		            	if(!a.getMatricule().equalsIgnoreCase("**"))
 		            		ses.setAttribute("vehicule", DAO.getVehicule(a.getMatricule()));
 		            	
-		            	response.sendRedirect("ConsulterReservation");
+		            	response.sendRedirect("ConsulterTrajet");
 		            }
 	            } 
 		}

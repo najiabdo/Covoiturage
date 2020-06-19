@@ -1,3 +1,4 @@
+<%@page import="javax.security.auth.message.callback.PrivateKeyCallback.Request"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@page import="java.util.ArrayList" %>
@@ -6,6 +7,7 @@
 <%@page import="beans.Authentification" %>
 <%@page import="beans.Trajet" %>
 <%@page import="dao.DAO" %>
+<%HttpSession ses= request.getSession(false); %>
 <!DOCTYPE html>
 <html lang="en">
   <head>

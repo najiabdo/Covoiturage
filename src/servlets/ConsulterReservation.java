@@ -26,7 +26,7 @@ public class ConsulterReservation extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession ses=request.getSession(false);
 		Utilisateur u=(Utilisateur)ses.getAttribute("utilisateur");
-		if(ses!=null){
+		if(ses.getAttribute("utilisateur")!=null){
 			if(request.getParameter("confirm")!=null && request.getParameter("id")!=null) {
 				if(request.getParameter("confirm").equalsIgnoreCase("oui")){
 					DAO.updateEtatReservation(Integer.parseInt(request.getParameter("id")),1);

@@ -33,7 +33,7 @@ protected void service(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession ses=request.getSession(false);
-		if(ses!=null)
+		if(ses.getAttribute("utilisateur")!=null)
 		{
 			if(request.getParameter("confirm").equalsIgnoreCase("oui")){
 				Trajet t=(Trajet)ses.getAttribute("tt");
