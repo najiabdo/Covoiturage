@@ -109,7 +109,7 @@ a=(String)ses.getAttribute("id"); %>
         <img src="images/icon.jpg" alt="" />
         <ul class="menu">
           <li>
-            <a href="#"> <span class="material-icons">home</span>Home </a>
+            <a href="acceuil.html"> <span class="material-icons">home</span>Home </a>
           </li>
           <li>
             <a href="ConsulterTrajet">
