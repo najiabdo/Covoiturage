@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import beans.SqlData;
 import beans.Trajet;
+import beans.Utilisateur;
 import dao.DAO;
 
 /**
@@ -53,11 +55,14 @@ protected void service(HttpServletRequest request, HttpServletResponse response)
 			else
 			{
 				tt=DAO.getTrajetById(Integer.parseInt(request.getParameter("idTT")));
-				ses.setAttribute("tt", tt);
-				request.setAttribute("deja", "deja inscrit");
+				request.setAttribute("tt", tt);
+				if(ses.getAttribute("utilisateur")!=null)
+				if(DAO.isInTrajet(tt.getIdT(), ((Utilisateur)ses.getAttribute("utilisateur")).getIdU()))
+				{request.setAttribute("deja", "deja inscrit");}
 				getServletContext().getRequestDispatcher("/WEB-INF/infoTrajet.jsp").forward(request, response); 
 			}
 		
 	}
+	
 
 }

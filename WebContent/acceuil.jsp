@@ -1,3 +1,5 @@
+<%HttpSession ses=request.getSession(false); %>
+<%@page import="beans.Utilisateur" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -19,7 +21,6 @@
     />
   </head>
   <body>
-    <header>
       <nav>
         <img src="images/icon.jpg" alt="" />
         <ul class="menu">
@@ -41,6 +42,7 @@
               <span class="material-icons">help_outline</span>Need Help ?
             </a>
           </li>
+          <%if(ses.getAttribute("utilisateur")==null){ %>
           <li>
             <a href="AuthentificationServlet">
               <span>Connexion</span>
@@ -51,12 +53,23 @@
               <span>Inscription</span>
             </a>
           </li>
+          <%}else{ %>
+          <li>
+            <a href="Profil?id=<%=((Utilisateur)ses.getAttribute("utilisateur")).getIdU()%>">
+              <span>Profil</span>
+            </a>
+          </li>
+          <li>
+            <a href="Deconnection">
+              <span>Deconnection</span>
+            </a>
+          </li>
+          <%} %>
         </ul>
       </nav>
       <section class="a1">
         <img src="images/a1.jpeg" alt="" />
       </section>
-    </header>
     <section id="about1">
       <div>
         <div>
@@ -80,7 +93,7 @@
           <i class="material-icons">security</i>
           <h3>Direct</h3>
           <p>
-            Que vous prÃ©voyiez Ã  lâ€™avance ou rÃ©serviez en derniÃ¨re minute, vous
+            Que vous prévoyiez à  l'€™avance ou réserviez en derniere minute, vous
             trouverez toujours un tarif avantageux
           </p>
         </div>
@@ -107,21 +120,34 @@
         </h3>
         <ul>
           <li>
-            <a href="#">
-              <i class="material-icons">keyboard_arrow_right</i>Comment Ã§a
+            <a href="help.jsp">
+              <i class="material-icons">keyboard_arrow_right</i>Comment ça
               marche
             </a>
           </li>
+          <%if(ses.getAttribute("utilisateur")==null){ %>
           <li>
             <a href="AuthentificationServlet">
-              <i class="material-icons">keyboard_arrow_right</i>Connexion
+              <span>Connexion</span>
             </a>
           </li>
           <li>
             <a href="InscriptionServlet">
-              <i class="material-icons">keyboard_arrow_right</i>inscription
+              <span>Inscription</span>
             </a>
           </li>
+          <%}else{ %>
+          <li>
+            <a href="Profil?id=<%=((Utilisateur)ses.getAttribute("utilisateur")).getIdU()%>">
+              <span>Profil</span>
+            </a>
+          </li>
+          <li>
+            <a href="Deconnection">
+              <span>Deconnection</span>
+            </a>
+          </li>
+          <%} %>
           <li>
             <a href="ConsulterTrajet">
               <i class="material-icons">keyboard_arrow_right</i>Consulter les
@@ -132,17 +158,17 @@
       </div>
       <div>
         <h3>
-          Ã  propos de Staypa<span><span></span></span>
+          à propos de Staypa<span><span></span></span>
         </h3>
         <ul>
           <li>
-            <a href="#">
+            <a href="aboutUs.jsp">
               <i class="material-icons">keyboard_arrow_right</i>Qui sommes-nous
               ?
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="motDeEquipe.jsp">
               <i class="material-icons">keyboard_arrow_right</i>Mot de l'equipe
               Staypa
             </a>

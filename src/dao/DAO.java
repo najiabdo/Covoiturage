@@ -69,11 +69,28 @@ public class DAO {
 		}
 		return u;
 	}
+	public static Utilisateur getUserByIDU(int id) {
+		SqlData.connection();
+		Utilisateur u = null;
+		ResultSet rs = SqlData.selectQuery("select * from utilisateurs where idU=" + id + ";");
+		try {
+			if (rs.next()) {
+				u = new Utilisateur(rs.getInt("idU"), rs.getString("nom"), rs.getString("prenom"), rs.getString("ddn"),
+						rs.getLong("ndt"), rs.getString("email"), rs.getString("id"), rs.getInt("idR"),
+						rs.getString("matricule"), rs.getBoolean("admin"));
+				SqlData.disconection();
+			} else
+				SqlData.disconection();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return u;
+	}
 
 	public static void creeUtilisateur(Utilisateur u) {
 		SqlData.connection();
 		SqlData.miseAJour("insert into utilisateurs (nom,prenom,ddn,ndt,email,id,idR,matricule) values ('" + u.getNom()
-				+ "','" + u.getPrenom() + "',STR_TO_DATE('" + u.getDdn() + "','%d-%m-%Y')," + u.getNdt() + ",'"
+				+ "','" + u.getPrenom() + "','" + u.getDdn() + "'," + u.getNdt() + ",'"
 				+ u.getEmail() + "','" + u.getId() + "'," + u.getidR() + ",'" + u.getMatricule() + "')");
 		SqlData.disconection();
 	}
@@ -265,8 +282,7 @@ public class DAO {
 
 	public static Vehicule getVehicule(String matricule) {
 		SqlData.connection();
-		ResultSet rs = SqlData
-				.selectQuery("select * from vehicules where lower(matricule)=lower('" + matricule + "');");
+		ResultSet rs = SqlData.selectQuery("select * from vehicules where lower(matricule)=lower('" + matricule + "');");
 		Vehicule v = null;
 
 		try {
@@ -488,4 +504,126 @@ public class DAO {
 		SqlData.miseAJour("DELETE FROM reservations WHERE idR=" + idR + ";");
 		SqlData.disconection();
 	}
+	public static Authentification getAuthentificationInfo(String id)
+	{
+		SqlData.connection();
+		Authentification u = null;
+		ResultSet rs = SqlData.selectQuery("select * from authentification where lower(id)=lower('" + id + "');");
+		try {
+			if (rs.next()) 
+				u = new Authentification(rs.getString(1), rs.getString(2), rs.getString(3), rs.getBoolean(4));
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		SqlData.disconection();
+		return u;
+	}
+	public static String getRegionById(int id) {
+		SqlData.connection();
+		ResultSet rs = SqlData.selectQuery("select nomR from regions where idR=" + id + ";");
+		String s;
+		try {
+			rs.next();
+			s = rs.getString("nomR");
+		} catch (SQLException e) {
+			s = null;
+			e.printStackTrace();
+		}
+
+		SqlData.disconection();
+		return s;
+	}
+	public static void updateNom(int id,String value){
+		SqlData.connection();
+		try {
+			SqlData.miseAJour("update utilisateurs set nom='"+value+"' where idU="+id+";");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		SqlData.disconection();
+	}
+	public static void updatePrenom(int id,String value){
+		SqlData.connection();
+		try {
+		SqlData.miseAJour("update utilisateurs set prenom='"+value+"' where idU="+id+";");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		SqlData.disconection();
+	}
+	public static void updateDdn(int id,String value){
+		SqlData.connection();
+		try {
+		SqlData.miseAJour("update utilisateurs set ddn='"+value+"' where idU="+id+";");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		SqlData.disconection();
+	}
+	public static void updateNdt(int id,long value){
+		SqlData.connection();
+		try {
+		SqlData.miseAJour("update utilisateurs set ndt='"+value+"' where idU="+id+";");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		SqlData.disconection();
+	}
+	public static void updateEmail(int id,String value){
+		SqlData.connection();
+		try {
+		SqlData.miseAJour("update utilisateurs set email='"+value+"' where idU="+id+";");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		SqlData.disconection();
+	}
+	public static void updateRegion(int id,int value){
+		SqlData.connection();
+		try {
+		SqlData.miseAJour("update utilisateurs set idR='"+value+"' where idU="+id+";");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		SqlData.disconection();
+	}
+	public static void updateVoitureUtilisateur(int id,String matricule,String marque,int ndp){
+		SqlData.connection();
+			SqlData.miseAJour("insert into vehicules values ('"+matricule+"','"+marque+"',"+ndp+");");
+
+		SqlData.miseAJour("update utilisateurs set matricule='"+matricule+"' where idU="+id+";");
+		SqlData.disconection();
+	}
+	public static void updatePassword(String id,String password)
+	{
+		SqlData.connection();
+		try {
+		SqlData.miseAJour("update authentification set password='"+password+"' where id="+id+";");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		SqlData.disconection();
+	}
+	public static void removeTrajet(int id)
+	{
+		SqlData.connection();
+		SqlData.miseAJour("delete from trajets where idT="+id+";");
+		SqlData.disconection();
+	}
+	public static List<Trajet> allTrajet(int id) {
+		SqlData.connection();
+		ResultSet rs = SqlData.selectQuery("select * from trajets where idCreateur="+id+" order by dateDepart;");
+		List<Trajet> t = new ArrayList<Trajet>();
+		try {
+			while (rs.next())
+				t.add(new Trajet(rs.getInt(1), rs.getString(2), rs.getBoolean(3), rs.getInt(4), rs.getString(5),
+						rs.getInt(6), rs.getInt(7), rs.getInt(8)));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		SqlData.disconection();
+		return t;
+	}
+	
 }

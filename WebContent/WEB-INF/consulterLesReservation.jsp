@@ -33,7 +33,7 @@
         <img src="images/icon.jpg" alt="" />
         <ul class="menu">
           <li>
-            <a href="acceuil.html"> <span class="material-icons">home</span>Home </a>
+            <a href="acceuil.jsp"> <span class="material-icons">home</span>Home </a>
           </li>
           <li>
             <a href="ConsulterTrajet">
@@ -50,6 +50,7 @@
               <span class="material-icons">help_outline</span>Need Help ?
             </a>
           </li>
+         <%if(ses.getAttribute("utilisateur")==null){ %>
           <li>
             <a href="AuthentificationServlet">
               <span>Connexion</span>
@@ -60,6 +61,18 @@
               <span>Inscription</span>
             </a>
           </li>
+          <%}else{ %>
+          <li>
+            <a href="Profil?id=<%=((Utilisateur)ses.getAttribute("utilisateur")).getIdU()%>">
+              <span>Profil</span>
+            </a>
+          </li>
+          <li>
+            <a href="Deconnection">
+              <span>Deconnection</span>
+            </a>
+          </li>
+          <%} %>
         </ul>
       </nav>
 <table>
@@ -86,7 +99,7 @@
 			<%=r.get(i).getDdReservation() %>
 		</td>
 		<td>
-			<%=DAO.getUtilisateur(r.get(i).getIdU()) %>
+			<a href="Profil?id=<%=r.get(i).getIdU()%>"><%=DAO.getUtilisateur(r.get(i).getIdU()) %></a>
 		</td>
 		<td>
 			<%=r.get(i).getIdT() %>
@@ -119,21 +132,34 @@
         </h3>
         <ul>
           <li>
-            <a href="#">
+            <a href="help.jsp">
               <i class="material-icons">keyboard_arrow_right</i>Comment ça
               marche
             </a>
           </li>
+          <%if(ses.getAttribute("utilisateur")==null){ %>
           <li>
             <a href="AuthentificationServlet">
-              <i class="material-icons">keyboard_arrow_right</i>Connexion
+              <span>Connexion</span>
             </a>
           </li>
           <li>
             <a href="InscriptionServlet">
-              <i class="material-icons">keyboard_arrow_right</i>inscription
+              <span>Inscription</span>
             </a>
           </li>
+          <%}else{ %>
+          <li>
+            <a href="Profil?id=<%=((Utilisateur)ses.getAttribute("utilisateur")).getIdU()%>">
+              <span>Profil</span>
+            </a>
+          </li>
+          <li>
+            <a href="Deconnection">
+              <span>Deconnection</span>
+            </a>
+          </li>
+          <%} %>
           <li>
             <a href="ConsulterTrajet">
               <i class="material-icons">keyboard_arrow_right</i>Consulter les
@@ -148,13 +174,13 @@
         </h3>
         <ul>
           <li>
-            <a href="#">
+            <a href="aboutUs.jsp">
               <i class="material-icons">keyboard_arrow_right</i>Qui sommes-nous
               ?
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="motDeEquipe.jsp">
               <i class="material-icons">keyboard_arrow_right</i>Mot de l'equipe
               Staypa
             </a>

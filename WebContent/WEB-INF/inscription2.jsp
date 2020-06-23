@@ -3,6 +3,8 @@ a=(String)ses.getAttribute("id"); %>
 <%@page import="java.util.ArrayList" %>
 <%@page import="beans.Utilisateur" %>
 <%@page import="beans.Authentification" %>
+<%@page import="dao.DAO" %>
+<%@page import="java.util.List" %>
 <%! Utilisateur u=new Utilisateur();%>
 <%! Authentification au = new Authentification();%>
 
@@ -109,7 +111,7 @@ a=(String)ses.getAttribute("id"); %>
         <img src="images/icon.jpg" alt="" />
         <ul class="menu">
           <li>
-            <a href="acceuil.html"> <span class="material-icons">home</span>Home </a>
+            <a href="acceuil.jsp"> <span class="material-icons">home</span>Home </a>
           </li>
           <li>
             <a href="ConsulterTrajet">
@@ -126,6 +128,7 @@ a=(String)ses.getAttribute("id"); %>
               <span class="material-icons">help_outline</span>Need Help ?
             </a>
           </li>
+          <%if(ses.getAttribute("utilisateur")==null){ %>
           <li>
             <a href="AuthentificationServlet">
               <span>Connexion</span>
@@ -136,6 +139,18 @@ a=(String)ses.getAttribute("id"); %>
               <span>Inscription</span>
             </a>
           </li>
+          <%}else{ %>
+         <li>
+            <a href="Profil?id=<%=((Utilisateur)ses.getAttribute("utilisateur")).getIdU()%>">
+              <span>Profil</span>
+            </a>
+          </li>
+          <li>
+            <a href="Deconnection">
+              <span>Deconnection</span>
+            </a>
+          </li>
+          <%} %>
         </ul>
       </nav>
       <form action="Inscription2Servlet" method="post">
@@ -152,11 +167,11 @@ a=(String)ses.getAttribute("id"); %>
             <input type="text" placeholder="Prenom" required name="prenom" value=<%=u.getPrenom()%>>
             <input type="date" placeholder="02-11-1999" required name="ddn" value=<%=u.getDdn()%>>
             <input type="number" name="ndt" value=<%=u.getNdt()%> placeholder="numero de telephone 06xxxxxxx">
-            <% ArrayList<String> regions=(ArrayList<String>)ses.getAttribute("regions"); %>
+            <% List<String> regions=DAO.toutLesRegion(); %>
                <select name="region">
-               <%for(int i=0;i<(regions.size());i++){ %>
-               <option value=<%=i+1%> ><%=regions.get(i) %></option>
-               <%} %>
+	               <%for(int i=0;i<(regions.size());i++){ %>
+	               <option value=<%=i+1%> ><%=regions.get(i) %></option>
+	               <%} %>
                </select>
             <input type="email" placeholder="Email" required name="email" value=<%=u.getEmail()%>>
             <input type="text" placeholder="Login" required name="login" value=<%=au.getLogin()%>>
@@ -186,21 +201,34 @@ a=(String)ses.getAttribute("id"); %>
         </h3>
         <ul>
           <li>
-            <a href="#">
+            <a href="help.jsp">
               <i class="material-icons">keyboard_arrow_right</i>Comment ça
               marche
             </a>
           </li>
+          <%if(ses.getAttribute("utilisateur")==null){ %>
           <li>
             <a href="AuthentificationServlet">
-              <i class="material-icons">keyboard_arrow_right</i>Connexion
+              <span>Connexion</span>
             </a>
           </li>
           <li>
             <a href="InscriptionServlet">
-              <i class="material-icons">keyboard_arrow_right</i>inscription
+              <span>Inscription</span>
             </a>
           </li>
+          <%}else{ %>
+          <li>
+            <a href="Profil?id=<%=((Utilisateur)ses.getAttribute("utilisateur")).getIdU()%>">
+              <span>Profil</span>
+            </a>
+          </li>
+          <li>
+            <a href="Deconnection">
+              <span>Deconnection</span>
+            </a>
+          </li>
+          <%} %>
           <li>
             <a href="ConsulterTrajet">
               <i class="material-icons">keyboard_arrow_right</i>Consulter les
@@ -215,13 +243,13 @@ a=(String)ses.getAttribute("id"); %>
         </h3>
         <ul>
           <li>
-            <a href="#">
+            <a href="aboutUs.jsp">
               <i class="material-icons">keyboard_arrow_right</i>Qui sommes-nous
               ?
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="motDeEquipe.jsp">
               <i class="material-icons">keyboard_arrow_right</i>Mot de l'equipe
               Staypa
             </a>

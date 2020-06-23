@@ -36,7 +36,7 @@ protected void service(HttpServletRequest request, HttpServletResponse response)
 		if(ses.getAttribute("utilisateur")!=null)
 		{
 			if(request.getParameter("confirm").equalsIgnoreCase("oui")){
-				Trajet t=(Trajet)ses.getAttribute("tt");
+				Trajet t=DAO.getTrajetById(Integer.parseInt(request.getParameter("idTT")));
 				Utilisateur u=(Utilisateur)ses.getAttribute("utilisateur");
 				Reservation r=new Reservation(u.getIdU(),t.getIdT());
 				Vehicule v=DAO.getVehiculeByIdU(u.getIdU());
@@ -53,7 +53,6 @@ protected void service(HttpServletRequest request, HttpServletResponse response)
 					//pas de place disponible
 				}
 			}else {
-				ses.removeAttribute("tt");
 				response.sendRedirect("ConsulterTrajet");
 			}
 		}else {

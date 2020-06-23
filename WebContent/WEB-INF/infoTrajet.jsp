@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@page import="beans.Trajet" %>
 <%@page import="beans.Vehicule" %>
+<%@page import="beans.Utilisateur" %>
 <%@page import="dao.DAO" %>
 <%HttpSession ses=request.getSession(false); %>
 <!DOCTYPE html>
@@ -29,7 +30,7 @@
         <img src="images/icon.jpg" alt="" />
         <ul class="menu">
           <li>
-            <a href="acceuil.html"> <span class="material-icons">home</span>Home </a>
+            <a href="acceuil.jsp"> <span class="material-icons">home</span>Home </a>
           </li>
           <li>
             <a href="ConsulterTrajet">
@@ -46,6 +47,7 @@
               <span class="material-icons">help_outline</span>Need Help ?
             </a>
           </li>
+         <%if(ses.getAttribute("utilisateur")==null){ %>
           <li>
             <a href="AuthentificationServlet">
               <span>Connexion</span>
@@ -56,9 +58,21 @@
               <span>Inscription</span>
             </a>
           </li>
+          <%}else{ %>
+          <li>
+            <a href="Profil?id=<%=((Utilisateur)ses.getAttribute("utilisateur")).getIdU()%>">
+              <span>Profil</span>
+            </a>
+          </li>
+          <li>
+            <a href="Deconnection">
+              <span>Deconnection</span>
+            </a>
+          </li>
+          <%} %>
         </ul>
       </nav>
-<%Trajet t=(Trajet)ses.getAttribute("tt");%>
+<%Trajet t=(Trajet)request.getAttribute("tt");%>
 <%Vehicule v=DAO.getVehiculeByIdU(t.getIdCreateur()); %>
 <%if(request.getAttribute("deja")!=null){ %>
 <h2 style="color:green;">Vous etes deja inscrit</h2>
@@ -80,10 +94,91 @@
 <h4>Prix :</h4>
 <p><%=t.getPrix()%></p>
 <%if((int) v.getNdp()>DAO.nbrDePassager(t.getIdT())){ %>
-<a href="rejoidreTrajet?confirm=oui">rejoidre</a>
+<a href="rejoidreTrajet?confirm=oui&idTT=<%=t.getIdT()%>">rejoidre</a>
 <%}else{ %>
 <p>max passager atteint</p>
 <%} %>
 <a href="rejoidreTrajet?confirm=non">annuller</a>
+    <footer>
+      <div>
+        <img src="images/icon.jpg" alt="" />
+      </div>
+      <div>
+        <h3>
+          more informations<span><span></span></span>
+        </h3>
+        <ul>
+          <li>
+            <a href="help.jsp">
+              <i class="material-icons">keyboard_arrow_right</i>Comment ça
+              marche
+            </a>
+          </li>
+          <%if(ses.getAttribute("utilisateur")==null){ %>
+          <li>
+            <a href="AuthentificationServlet">
+              <span>Connexion</span>
+            </a>
+          </li>
+          <li>
+            <a href="InscriptionServlet">
+              <span>Inscription</span>
+            </a>
+          </li>
+          <%}else{ %>
+          <li>
+            <a href="Profil?id=<%=((Utilisateur)ses.getAttribute("utilisateur")).getIdU()%>">
+              <span>Profil</span>
+            </a>
+          </li>
+          <li>
+            <a href="Deconnection">
+              <span>Deconnection</span>
+            </a>
+          </li>
+          <%} %>
+          <li>
+            <a href="ConsulterTrajet">
+              <i class="material-icons">keyboard_arrow_right</i>Consulter les
+              trajets
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h3>
+          à propos de Staypa<span><span></span></span>
+        </h3>
+        <ul>
+          <li>
+            <a href="aboutUs.jsp">
+              <i class="material-icons">keyboard_arrow_right</i>Qui sommes-nous
+              ?
+            </a>
+          </li>
+          <li>
+            <a href="motDeEquipe.jsp">
+              <i class="material-icons">keyboard_arrow_right</i>Mot de l'equipe
+              Staypa
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h3>
+          CONTACT<span><span></span></span>
+        </h3>
+        <ul>
+          <li>
+            <i class="material-icons">phone</i>
+            <h3>+212 (0)661182058</h3>
+          </li>
+          <li>
+            <i class="material-icons">email</i>
+            <h3>support@staypa.ma</h3>
+          </li>
+        </ul>
+      </div>
+    </footer>
 </body>
 </html>

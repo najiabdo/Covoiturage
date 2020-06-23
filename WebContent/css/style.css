@@ -5,23 +5,24 @@
 .material-icons {
   color: rgb(8, 72, 118);
 }
-header {
-}
 
 nav {
   display: flex;
-  justify-content: space-between;
-  padding: 10px 40px;
+  justify-content: space-around;
+  padding: 10px 0px;
+  width: 100%;
 }
 img {
   height: 60px;
   width: 150px;
+  padding-right: 60px;
 }
 .menu {
   text-decoration: none;
   list-style: none;
   display: flex;
   justify-content: space-between;
+  padding-left: 60px;
   color: rgb(41, 38, 38);
   text-transform: uppercase;
 }

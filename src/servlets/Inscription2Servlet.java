@@ -104,8 +104,10 @@ public class Inscription2Servlet extends HttpServlet {
 			    if(request.getParameter("voiture").equalsIgnoreCase("oui"))
 			    DAO.creeVehicule(v);
 		    	DAO.updateAuthentification(a);
+		    	System.out.println(u.getDdn());
 		    	DAO.creeUtilisateur(u);
 		    	ses.invalidate();
+		    	response.sendRedirect("acceuil.jsp");
 			    }
 			    else
 			    {

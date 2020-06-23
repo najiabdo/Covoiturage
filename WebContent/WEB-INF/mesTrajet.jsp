@@ -1,18 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%HttpSession ses=request.getSession(); %>
 <%@page import="java.util.ArrayList" %>
 <%@page import="java.util.List" %>
 <%@page import="beans.Utilisateur" %>
-<%@page import="beans.Authentification" %>
+<%@page import="beans.Trajet" %>
 <%@page import="dao.DAO" %>
-<%HttpSession ses= request.getSession(false); %>
+<%@page import="beans.Reservation"%>
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="css/style.css" />
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet" href="css/style.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Lobster&family=Pacifico&family=Roboto+Condensed:wght@700&family=Sigmar+One&family=Ultra&display=swap"
       rel="stylesheet"
@@ -25,9 +24,9 @@
       href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Montserrat:300,400,500,700"
       rel="stylesheet"
     />
-  </head>
-  <body>
-  <nav>
+</head>
+<body>
+<nav>
         <img src="images/icon.jpg" alt="" />
         <ul class="menu">
           <li>
@@ -60,10 +59,10 @@
             </a>
           </li>
           <%}else{ %>
-          <li>
+           <li>
             <a href="Profil?id=<%=((Utilisateur)ses.getAttribute("utilisateur")).getIdU()%>">
               <span>Profil</span>
-            </a>
+            </a>s
           </li>
           <li>
             <a href="Deconnection">
@@ -73,56 +72,59 @@
           <%} %>
         </ul>
       </nav>
-    <%=(String)request.getAttribute("erreur")%>
-    <%List<String> r=DAO.toutLesRegion();%>
-    <form action="creationTrajet" method="POST">
-      <div>
-        <label for="regionDepart">depart : </label>
-       <select name="regionDepart">
-      <%for(int i=0;i<(r.size());i++){ %>
-        <option value=<%=i+1%> ><%=r.get(i) %></option>
-        <%} %>
-      </select>
-        <label for="cartierDepart">Cartier : </label>
-        <input type="text" name="cartierDepart" id="cartierDepart" />
-      </div>
-
-      <div>
-        <label for="regionArrive">Destination : </label>
-        <select name="regionArrive">
-      <%for(int i=0;i<(r.size());i++){ %>
-        <option value=<%=i+1%> ><%=r.get(i) %></option>
-        <%} %>
-      </select>
-        
-
-        <label for="cartierArrive">Cartier : </label>
-        <input type="text" name="cartierArrive" id="cartierArrive" />
-      </div>
-      <div>
-        <label for="ddDepart">date du depart :</label>
-        <input
-          type="date"
-          name="ddDepart"
-          placeholder="09-09-1999"
-          id="ddDepart"
-        />
-      </div>
-      <div>
-        <label for="">bagage autorisÃ© :</label>
-        <input type="radio" id="bagageoui" name="bagage" value="oui" />
-        <label for="bagageoui">oui</label>
-        <input type="radio" id="bagagenon" name="bagage" value="non" />
-        <label for="bagagenon">non</label>
-      </div>
-      <div>
-        <label for="prix">Prix du trajet par passager :</label>
-        <input type="number" name="prix" id="prix" />
-        <span> DH</span>
-      </div>
-      <input type="submit">
-	</form>
-	    <footer>
+<h1>Mes Trajet</h1>
+<%List<Trajet> t=(List<Trajet>)request.getAttribute("listTrajet"); %>
+<table>
+	<tr>
+	  <td>
+	     date de creation
+	  </td>
+      <td>
+         Bagage autorisé 
+      </td>
+      <td>
+         Prix 
+      </td>
+      <td>
+         Date Depart
+      </td>
+      <td>
+         Depart
+      </td>
+      <td>
+         arrivé
+      </td>
+      <td>
+         Annulation
+      <td>
+    </tr>
+	<%for(int i=0;i<t.size();i++){ %>
+	<tr>
+		<td>
+			<%=t.get(i).getDateCreation() %>
+		</td>
+		<td>
+			<%=t.get(i).isBagageAutorise() %>
+		</td>
+		<td>
+			<%=t.get(i).getPrix() %>
+		</td>
+		<td>
+			<%=t.get(i).getDateDepart() %>
+		</td>
+		<td>
+		    <%=DAO.getRegionByCartier(t.get(i).getIdCartierDepart()) %>
+		</td>
+		<td>
+		    <%=DAO.getRegionByCartier(t.get(i).getIdCartierArrive()) %>
+		</td>
+		<td>
+			<a href="ConsulterMesTrajets?annulation=oui&id=<%=t.get(i).getIdT()%>">annuler</a>
+		</td>
+	</tr>
+	<%} %>
+</table>
+    <footer>
       <div>
         <img src="images/icon.jpg" alt="" />
       </div>
@@ -133,7 +135,7 @@
         <ul>
           <li>
             <a href="help.jsp">
-              <i class="material-icons">keyboard_arrow_right</i>Comment Ã§a
+              <i class="material-icons">keyboard_arrow_right</i>Comment ça
               marche
             </a>
           </li>
@@ -170,7 +172,7 @@
       </div>
       <div>
         <h3>
-          Ã  propos de Staypa<span><span></span></span>
+          à propos de Staypa<span><span></span></span>
         </h3>
         <ul>
           <li>
@@ -203,5 +205,5 @@
         </ul>
       </div>
     </footer>
-  </body>
+</body>
 </html>
