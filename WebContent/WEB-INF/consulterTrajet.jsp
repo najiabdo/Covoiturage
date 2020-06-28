@@ -27,6 +27,62 @@
       href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Montserrat:300,400,500,700"
       rel="stylesheet"
     />
+    <style type="text/css">
+    h1
+    {
+      color: white;
+	  font-family: "Montserrat", sans-serif;
+	  font-size: 30px;
+	  font-weight: 800;
+	  text-transform: uppercase;
+	  padding-top:20px;
+	  text-decoration:underline;
+    
+    }
+     label,td,a
+    {
+      color: white;
+	  font-family: "Montserrat", sans-serif;
+	  font-size: 18px;
+	  font-weight: 500;
+	  text-transform: uppercase;
+	  padding-right:20px;
+    }
+    input[type="submit"]
+    {
+      border-radius:20px;
+      background-color:#2c79a7;
+      color: white;
+	  font-family: "Montserrat", sans-serif;
+	  font-size: 15px;
+	  font-weight: 300;
+	  text-transform: uppercase;
+	  text-align: center;
+	  padding:10px 20px;
+	  border:1px solid black;
+	   margin-left: 30px;
+    }
+    input,select
+    {
+      background-color:white;
+      border:2px solid #2c79a7;
+      color: black;
+	  font-family: "Montserrat", sans-serif;
+	  font-size: 15px;
+	  font-weight: 700;
+	  text-transform: uppercase;
+      padding:10px 20px;
+    }
+    
+    .contenaire
+    {
+       background-color: rgb(60, 36, 122);
+    }
+	table
+	{
+	padding: 80px 10px;
+	}
+    </style>
   </head>
   <body>
   <nav>
@@ -75,71 +131,80 @@
           <%} %>
         </ul>
       </nav>
-     <form action="">
-    <%List<String> r=DAO.toutLesRegion();%>
-    <label for="depart">depart :</label>
-    <select name="depart" id="depart">
-      <%for(int i=0;i<(r.size());i++){ %>
-        <option value=<%=i+1%> ><%=r.get(i) %></option>
-        <%} %>
-      </select>
-    <label for="arrive">arrivé :</label>
-     <select name="arrive" id="arrive">
-      <%for(int i=0;i<(r.size());i++){ %>
-        <option value=<%=i+1%> ><%=r.get(i) %></option>
-        <%} %>
-      </select>
-    <input type="submit" value="rechercher" />
-    </form>
-    <%List<Trajet> t=(List<Trajet>)request.getAttribute("t");%>
-    <table>
-    <tr>
-      <td>
-         Bagage autorisé 
-      </td>
-      <td>
-         Prix 
-      </td>
-      <td>
-         Date Depart
-      </td>
-      <td>
-         Conducteur
-      </td>
-      <td>
-         Depart
-      </td>
-      <td>
-         arrivé
-      </td>
-    </tr>
-    <%for(int i=0;i<t.size();i++){%>
-    <tr>
-      <td>
-         <input type="text" readonly="readonly" value=<%=t.get(i).isBagageAutorise()%>>
-      </td>
-      <td>
-         <input type="text" readonly="readonly" value=<%=t.get(i).getPrix() %>>
-      </td>
-      <td>
-         <input type="text" readonly="readonly" value=<%=t.get(i).getDateDepart() %>>
-      </td>
-      <td >
-         <a href="Profil?id=<%=t.get(i).getIdCreateur()%>"><input  style="cursor: pointer;color:blue;"  type="text" readonly="readonly" value=<%=DAO.getUtilisateur(t.get(i).getIdCreateur()) %>></a>
-      </td>
-      <td>
-         <input type="text" readonly="readonly" value=<%=DAO.getRegionByCartier(t.get(i).getIdCartierDepart()) %>>
-      </td>
-      <td>
-         <input type="text" readonly="readonly" value=<%=DAO.getRegionByCartier(t.get(i).getIdCartierArrive()) %>>
-      </td>
-      <td>
-         <a href="ConsulterTrajet?idTT=<%=t.get(i).getIdT()%>"> consulter</a>
-      </td>
-    </tr>
-    
-    <%} %>
-    </table>
+      <div class="contenaire">
+          <h1 style="display:block;text-align:center;">Retrouvez votre destination</h1>
+	      <div style="display:flex; justify-content: space-around;padding-top:80px;">
+		     <form action="ConsulterTrajet" method="post">
+			    <%List<String> r=DAO.toutLesRegion();%>
+			    <div>
+				    <label for="depart">depart :</label>
+				    <select name="depart" id="depart">
+				      <%for(int i=0;i<(r.size());i++){ %>
+				        <option value=<%=i+1%> ><%=r.get(i) %></option>
+				        <%} %>
+				      </select>
+			    </div>
+			    <div>
+				    <label for="arrive">arrivé :</label>
+				     <select name="arrive" id="arrive">
+				      <%for(int i=0;i<(r.size());i++){ %>
+				        <option value=<%=i+1%> ><%=r.get(i) %></option>
+				        <%} %>
+				      </select>
+				    <input type="submit" value="rechercher" />
+			    </div>
+		    </form>
+	     </div>
+	    <%List<Trajet> t=(List<Trajet>)request.getAttribute("t");%>
+		    <table>
+		    <tr>
+		      <td>
+		         Bagage autorisé 
+		      </td>
+		      <td>
+		         Prix 
+		      </td>
+		      <td>
+		         Date Depart
+		      </td>
+		      <td>
+		         Conducteur
+		      </td>
+		      <td>
+		         Depart
+		      </td>
+		      <td>
+		         arrivé
+		      </td>
+		    </tr>
+		    <%for(int i=0;i<t.size();i++){%>
+		    <tr>
+		      <td>
+		         <input type="text" readonly="readonly" value=<%=t.get(i).isBagageAutorise()%>>
+		      </td>
+		      <td>
+		         <input type="text" readonly="readonly" value=<%=t.get(i).getPrix() %>>
+		      </td>
+		      <td>
+		         <input type="text" readonly="readonly" value=<%=t.get(i).getDateDepart() %>>
+		      </td>
+		      <td >
+		         <a href="Profil?id=<%=t.get(i).getIdCreateur()%>"><input  style="cursor: pointer;color:blue;"  type="text" readonly="readonly" value=<%=DAO.getUtilisateur(t.get(i).getIdCreateur()) %>></a>
+		      </td>
+		      <td>
+		         <input type="text" readonly="readonly" value=<%=DAO.getRegionByCartier(t.get(i).getIdCartierDepart()) %>>
+		      </td>
+		      <td>
+		         <input type="text" readonly="readonly" value=<%=DAO.getRegionByCartier(t.get(i).getIdCartierArrive()) %>>
+		      </td>
+		      <td>
+		         <a href="ConsulterTrajet?idTT=<%=t.get(i).getIdT()%>"> consulter</a>
+		      </td>
+		    </tr>
+		    
+		    <%} %>
+		    </table>
+		    </div>
         <footer>
       <div>
         <img src="images/icon.jpg" alt="" />

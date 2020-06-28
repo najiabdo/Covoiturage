@@ -20,6 +20,43 @@
       href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Montserrat:300,400,500,700"
       rel="stylesheet"
     />
+    <style type="text/css">
+    label
+    {
+      color: white;
+	  font-family: "Montserrat", sans-serif;
+	  font-size: 18px;
+	  font-weight: 500;
+	  text-transform: uppercase;
+	  padding-right:20px;
+    }
+    input[type="submit"]
+    {
+      border-radius:20px;
+      background-color:#2c79a7;
+      color: white;
+	  font-family: "Montserrat", sans-serif;
+	  font-size: 15px;
+	  font-weight: 300;
+	  text-transform: uppercase;
+	  text-align: center;
+	  padding:10px 20px;
+	  border:1px solid black;
+	   margin-left: 30px;
+    }
+    input
+    {
+      background-color:white;
+      border:2px solid #2c79a7;
+      color: black;
+	  font-family: "Montserrat", sans-serif;
+	  font-size: 15px;
+	  font-weight: 300;
+	  text-transform: uppercase;
+      padding:10px 20px;
+    }
+    
+    </style>
 </head>
 <body>
 <nav>
@@ -68,10 +105,14 @@
           <%} %>
         </ul>
       </nav>
-<form action="Inscription" method="POST">
-<label>Card ID :</label>
+<form action="Inscription" method="POST" style="display:block;background-color: rgb(60, 36, 122);height:40vh; display:flex;justify-content: space-around;align-items:center;">
+<div>
+<label >Card ID :</label>
+<span style="padding:40px; display:inline-block;">
 <input type="text" required name="id">
 <input type="submit" value="Valider">
+</span>
+</div>
 </form>
     <footer>
       <div>

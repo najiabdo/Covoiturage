@@ -46,7 +46,105 @@
 			#m7m{
 		    display:none;
 		    }	
+	h1
+    {
+      color: white;
+	  font-family: "Montserrat", sans-serif;
+	  font-size: 30px;
+	  font-weight: 800;
+	  text-transform: uppercase;
+	  padding-top:20px;
+	  text-decoration:underline;
+	  text-align:center;
+	  padding-bottom:60px;
+    
+    }
+    h3
+    {
+      color: white;
+	  font-family: "Montserrat", sans-serif;
+	  font-size: 24px;
+	  font-weight: 500;
+	  text-transform: uppercase;
+	  display:inline;
+	  padding-right:20px;
+	  padding-left:20px;
+    
+    }
+    div>ul>li>a,li
+    {
+      color: white;
+	  font-family: "Montserrat", sans-serif;
+	  font-size: 18px;
+	  font-weight: 500;
+	  text-transform: uppercase;
+	  padding-right:20px;
+	  padding-top:20px;
+    } 
+    .contenaire
+    {
+       background-color: rgb(60, 36, 122);
+    }
+    label
+    {
+      color: white;
+	  font-family: "Montserrat", sans-serif;
+	  font-size: 18px;
+	  font-weight: 500;
+	  text-transform: uppercase;
+	  padding-right:20px;
+    }
+    input[type="submit"]
+    {
+      border-radius:20px;
+      background-color:#2c79a7;
+      color: white;
+	  font-family: "Montserrat", sans-serif;
+	  font-size: 15px;
+	  font-weight: 300;
+	  text-transform: uppercase;
+	  text-align: center;
+	  padding:2px 10px;
+	  border:1px solid black;
+	   margin-left: 30px;
+    }
+    input
+    {
+      background-color:white;
+      border:2px solid #2c79a7;
+      color: black;
+	  font-family: "Montserrat", sans-serif;
+	  font-size: 15px;
+	  font-weight: 500;
+	  text-transform: uppercase;
+      padding:2px 10px;
+    }
+    #m1,
+	#m2,
+	#m3,
+	#m4,
+	#m5,
+	#m6,
+	#m7{
+	
+	font-family: "Montserrat", sans-serif;
+	font-size: 18px;
+    font-weight: 500;
+    text-transform: uppercase;
+	padding-left:100px;
+	}
+	.lien
+	{
+	display:flex;
+	justify-content:space-between;
+	padding: 60px 0px;
+	}
+	pre
+	{
+	display:inline;
+	}
     </style>
+
 </head>
 <body>
 <nav>
@@ -95,12 +193,14 @@
           <%} %>
         </ul>
       </nav>
+      <div class="contenaire">
+      <h1>profile</h1>
       <div>
          <ul>
          
          <li>
-	         Nom et Prenom : <%=u.getNom()%> <%=u.getPrenom()%>  
-	         <span style="cursor: pointer;Color:blue;" id="m1">Modifier</span>
+	         <pre>Nom et Prenom              :</pre><h3> <%=u.getNom()%> <%=u.getPrenom()%>  </h3>
+	         <span style="cursor: pointer;color: #2c79a7;" id="m1">Modifier</span>
 	         <form method="post" action="UpdateUserData?m=m1" id="m1m">
 		         <input type="text" placeholder="nom" name="nom" value="<%=u.getNom()%>" required>
 		         <input type="text" placeholder="prenom" name="prenom" value="<%=u.getPrenom()%>" required>
@@ -109,32 +209,32 @@
          </li>
          
          <li>
-         Date de naissance   :<%=u.getDdn()%>    
-         <span style="cursor: pointer;Color:blue;" id="m2">Modifier</span>
+         <pre>Date de naissance          :</pre> <h3><%=u.getDdn()%>    </h3>
+         <span style="cursor: pointer;color: #2c79a7;" id="m2">Modifier</span>
 	         <form method="post" action="UpdateUserData?m=m2" id="m2m">
 	         	<input type="date" placeholder="19-09-1999" name="ddn" value="<%=u.getDdn()%>" required>
 	         	<input type="submit" value="valider">
 	         </form>
          </li>
          <li>
-         Numero de telephone :0<%=u.getNdt() %>   
-         <span style="cursor: pointer;Color:blue;" id="m3">Modifier</span>
+         <pre>Numero de telephone        :</pre><h3>0<%=u.getNdt() %>   </h3>
+         <span style="cursor: pointer;color: #2c79a7;" id="m3">Modifier</span>
        	     <form method="post" action="UpdateUserData?m=m3" id="m3m">
 	         	<input type="numbre" placeholder="06XXXXXXXX" name="ndt" value="0<%=u.getNdt() %>" required>
 	         	<input type="submit" value="valider">
 	         </form>
          </li>
          <li>
-         Email               :<%=u.getEmail() %>   
-         <span style="cursor: pointer;Color:blue;" id="m4">Modifier</span>
+         <pre>Email                      :</pre><h3><%=u.getEmail() %>   </h3>
+         <span style="cursor: pointer;color: #2c79a7;" id="m4">Modifier</span>
        		 <form method="post" action="UpdateUserData?m=m4" id="m4m">
 	         	<input type="email" placeholder="xyz@domaine.com" name="email" value="<%=u.getEmail() %> " required>
 	         	<input type="submit" value="valider">
 	         </form>
          </li>
          <li>
-         Region de residence :<%=DAO.getRegionById(u.getidR())%>   
-         <span style="cursor: pointer;Color:blue;" id="m5">Modifier</span>
+         <pre>Region de residence        :</pre><h3><%=DAO.getRegionById(u.getidR())%>  </h3> 
+         <span style="cursor: pointer;color: #2c79a7;" id="m5">Modifier</span>
              <form method="post" action="UpdateUserData?m=m5" id="m5m">
 	         	<% List<String> regions=DAO.toutLesRegion(); %>
                 <select name="region">
@@ -147,8 +247,8 @@
          </li>
          <%if(!u.getMatricule().equalsIgnoreCase("**")){ %>
          <li>
-         Voiture : <%=(DAO.getVehicule(u.getMatricule())) %>   
-         <span style="cursor: pointer;Color:blue;" id="m6">Modifier</span>
+         <pre>Voiture                    : </pre><h3><%=(DAO.getVehicule(u.getMatricule())) %>  </h3>
+         <span style="cursor: pointer;color: #2c79a7;" id="m6">Modifier</span>
 	         <form method="post" action="UpdateUserData?m=m6" id="m6m">
 		         	<input type="text" placeholder="Matricule" name="matricule" required>
 		         	<input type="text" placeholder="marque" name="marque" required>
@@ -159,7 +259,10 @@
          <%} %>
          
          <li>
-         <span style="cursor: pointer;Color:blue;" id="m7"> changer mon mot de passe</span>
+         <%if(ses.getAttribute("utilisateur")!=null && u.getIdU()==((Utilisateur)ses.getAttribute("utilisateur")).getIdU()) {%>
+         <pre>mot de passe               :</pre>
+         <%} %>
+         <span style="cursor: pointer;color: #2c79a7;" id="m7"> changer mon mot de passe</span>
              <form method="post" action="UpdateUserData?m=m7" id="m7m">
 	         	<input type="password" name="password" required>
 	         	<input type="submit" value="valider">
@@ -168,17 +271,16 @@
          </ul>
       </div>
       <%if(ses.getAttribute("utilisateur")!=null && u.getIdU()==((Utilisateur)ses.getAttribute("utilisateur")).getIdU()) {%>
-      <div>
-          <a href="MesReservation"><h2 >Consulter mes demande de Reservations</h2></a>
-      </div>
+      <div class="lien">
+          <a href="MesReservation">Consulter mes demande de Reservations</a>
       <%if(!u.getMatricule().equalsIgnoreCase("**")){ %>
-         <div>
-              <a href="ConsulterMesTrajets"><h2>Consulter Vos trajets</h2></a>
-              <a href="ConsulterReservation"><h2>Consulter les reservation de Vos trajets</h2></a>
-         </div>
+              <a href="ConsulterMesTrajets">Consulter Vos trajets</a>
+              <a href="ConsulterReservation">Consulter les reservation de Vos trajets</a>
+              <a href="creationTrajet">Creez un trajet</a>
          <%} %>
+         </div>
        <%} %>
-         
+    </div>
     <footer>
       <div>
         <img src="images/icon.jpg" alt="" />
@@ -249,13 +351,13 @@
           CONTACT<span><span></span></span>
         </h3>
         <ul>
-          <li>
+          <li >
             <i class="material-icons">phone</i>
-            <h3>+212 (0)661182058</h3>
+            <h3 class="ff">+212 (0)661182058</h3>
           </li>
           <li>
             <i class="material-icons">email</i>
-            <h3>support@staypa.ma</h3>
+            <h3 class="ff">support@staypa.ma</h3>
           </li>
         </ul>
       </div>

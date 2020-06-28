@@ -25,6 +25,77 @@
       href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Montserrat:300,400,500,700"
       rel="stylesheet"
     />
+    <style>
+    .wrap>div
+    {
+    padding-top:20px;
+    }
+    .contenaire {
+        background-color: rgb(60, 36, 122);
+        height: 100%;
+        font-family: Arial, Helvetica, sans-serif;
+        padding: 40px;
+        position: relative;
+      }
+      .wrap {
+        max-width: 350px;
+        border-radius: 20px;
+        margin: auto;
+        box-sizing: border-box;
+        padding: 40px;
+        color: #fff;
+        background: rgba(0, 0, 0, 0.8);
+      }
+      .inscriTitle {
+        text-align: center;
+      }
+            input[type="text"],
+      input[type="password"],
+      input[type="date"],
+      input[type="email"],
+      input[type="number"]
+      {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 12px 5px;
+        background: white;
+        outline: none;
+        border: none;
+        border-bottom: 1px dotted #fff;
+        color: rgb(37, 10, 187);
+        border-radius: 5px;
+        margin: 5px;
+        font-weight: bold;
+      }
+      select{
+        width: 100%;
+        box-sizing: border-box;
+        padding: 12px 5px;
+        background: white	;
+        outline: none;
+        color: rgb(37, 10, 187);
+        border-radius: 5px;
+        margin: 5px;
+        font-weight: bold;
+      }
+      input[type="submit"] {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 10px 0px;
+        margin-top: 30px;
+        outline: none;
+        border: none;
+        background: #60adde;
+        opacity: 0.7;
+        border-radius: 20px;
+        font-size: 20px;
+        color: #fff;
+      }
+      input[type="submit"]:hover {
+        background: #003366;
+        opacity: 0.7;
+      }
+    </style>
   </head>
   <body>
   <nav>
@@ -73,9 +144,16 @@
           <%} %>
         </ul>
       </nav>
-    <%=(String)request.getAttribute("erreur")%>
-    <%List<String> r=DAO.toutLesRegion();%>
+    <%List<String> r=DAO.toutLesRegion(); %>
     <form action="creationTrajet" method="POST">
+    <div class="contenaire">
+            <p style="color:red;position:absolute;">
+               <% if(request.getAttribute("erreur")!=null){%>
+               <%=(String)request.getAttribute("erreur")%>
+               <%} %>
+            </p>
+            <div class="wrap">
+              <h1 class="inscriTitle">Creer Trajet</h1>
       <div>
         <label for="regionDepart">depart : </label>
        <select name="regionDepart">
@@ -121,6 +199,8 @@
         <span> DH</span>
       </div>
       <input type="submit">
+      </div>
+      </div>
 	</form>
 	    <footer>
       <div>

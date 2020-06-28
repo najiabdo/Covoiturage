@@ -23,6 +23,71 @@
       href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Montserrat:300,400,500,700"
       rel="stylesheet"
     />
+    <style>
+    h1
+    {
+      color: white;
+	  font-family: "Montserrat", sans-serif;
+	  font-size: 30px;
+	  font-weight: 800;
+	  text-transform: uppercase;
+	  padding-top:20px;
+	  text-decoration:underline;
+	  text-align:center;
+	  padding-bottom:60px;
+    
+    }
+    p
+    {
+      color: green;
+	  font-family: "Montserrat", sans-serif;
+	  font-size: 24px;
+	  font-weight: 500;
+	  text-transform: uppercase;
+	  display:inline;
+	  padding-right:20px;
+	  padding-left:20px;
+    
+    }
+    h4
+    {
+      color: white;
+	  font-family: "Montserrat", sans-serif;
+	  font-size: 18px;
+	  font-weight: 500;
+	  text-transform: uppercase;
+	  padding-right:20px;
+	  padding-top:20px;
+    } 
+    h2
+    {
+      color: green;
+	  font-family: "Montserrat", sans-serif;
+	  font-size: 27px;
+	  font-weight: 500;
+	  text-transform: uppercase;
+	  display:inline;
+	  padding-right:20px;
+	  padding-left:20px;
+      text-decoration: underline;
+      text-align:center;
+    }
+    a
+    {
+      color: red;
+	  font-family: "Montserrat", sans-serif;
+	  font-size: 18px;
+	  font-weight: 500;
+	  text-transform: uppercase;
+	  padding-right:20px;
+	  padding-top:20px;
+	  display:block;
+    } 
+    .contenaire
+    {
+       background-color: rgb(60, 36, 122);
+    }
+    </style>
 </head>
 
 <body>
@@ -74,6 +139,8 @@
       </nav>
 <%Trajet t=(Trajet)request.getAttribute("tt");%>
 <%Vehicule v=DAO.getVehiculeByIdU(t.getIdCreateur()); %>
+<div class="contenaire">
+<h1>Information du trajet  <%=t.getIdT()%></h1>
 <%if(request.getAttribute("deja")!=null){ %>
 <h2 style="color:green;">Vous etes deja inscrit</h2>
 <%} %>
@@ -99,6 +166,7 @@
 <p>max passager atteint</p>
 <%} %>
 <a href="rejoidreTrajet?confirm=non">annuller</a>
+</div>
     <footer>
       <div>
         <img src="images/icon.jpg" alt="" />

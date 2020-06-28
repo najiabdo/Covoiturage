@@ -24,6 +24,66 @@
       href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Montserrat:300,400,500,700"
       rel="stylesheet"
     />
+     <style type="text/css">
+    h1
+    {
+      color: white;
+	  font-family: "Montserrat", sans-serif;
+	  font-size: 30px;
+	  font-weight: 800;
+	  text-transform: uppercase;
+	  padding-top:20px;
+	  text-decoration:underline;
+	  text-align:center;
+    
+    }
+    th
+    {
+      color: white;
+	  font-family: "Montserrat", sans-serif;
+	  font-size: 18px;
+	  font-weight: 600;
+	  text-transform: uppercase;
+	  padding-top:20px;
+	  text-decoration:underline;
+	  text-align:center;
+      
+    }
+     a
+    {
+      color: red;
+	  font-family: "Montserrat", sans-serif;
+	  font-size: 18px;
+	  font-weight: 500;
+	  text-transform: uppercase;
+	  padding-right:20px;
+    }
+   
+    td
+    {
+      background-color:white;
+      border:2px solid #2c79a7;
+      color: black;
+	  font-family: "Montserrat", sans-serif;
+	  font-size: 15px;
+	  font-weight: 700;
+	  text-transform: uppercase;
+      padding:10px 20px;
+      width: 15%;
+    }
+    
+    .contenaire
+    {
+       background-color: rgb(60, 36, 122);
+    }
+	table
+	{
+	padding: 80px 10px;
+	}
+	thead{
+	padding-bottom: 20px;
+	}
+    </style>
 </head>
 <body>
 <nav>
@@ -72,31 +132,33 @@
           <%} %>
         </ul>
       </nav>
-<h1>Mes Trajet</h1>
+<div class="contenaire">
+<h1>Mes Trajets</h1>
 <%List<Trajet> t=(List<Trajet>)request.getAttribute("listTrajet"); %>
-<table>
+<div style="display:flex;justify-content: space-around;">
+<table style="display: inline-block;width:80%;">
 	<tr>
-	  <td>
+	  <th>
 	     date de creation
-	  </td>
-      <td>
+	  </th>
+      <th>
          Bagage autorisé 
-      </td>
-      <td>
+      </th>
+      <th>
          Prix 
-      </td>
-      <td>
+      </th>
+      <th>
          Date Depart
-      </td>
-      <td>
+      </th>
+      <th>
          Depart
-      </td>
-      <td>
+      </th>
+      <th>
          arrivé
-      </td>
-      <td>
+      </th>
+      <th>
          Annulation
-      <td>
+      <th>
     </tr>
 	<%for(int i=0;i<t.size();i++){ %>
 	<tr>
@@ -124,6 +186,8 @@
 	</tr>
 	<%} %>
 </table>
+</div>
+</div>
     <footer>
       <div>
         <img src="images/icon.jpg" alt="" />

@@ -33,7 +33,7 @@
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="aboutUs.html">
               <span class="material-icons">perm_identity</span>About Us
             </a>
           </li>

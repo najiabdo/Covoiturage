@@ -32,7 +32,6 @@ public class DAO {
 		return u;
 
 	}
-
 	public static Authentification connexion(String login, String password) {
 		SqlData.connection();
 		Authentification u = null;
@@ -51,7 +50,6 @@ public class DAO {
 		}
 		return u;
 	}
-
 	public static Utilisateur getUserByRFID(String id) {
 		SqlData.connection();
 		Utilisateur u = null;
@@ -86,7 +84,6 @@ public class DAO {
 		}
 		return u;
 	}
-
 	public static void creeUtilisateur(Utilisateur u) {
 		SqlData.connection();
 		SqlData.miseAJour("insert into utilisateurs (nom,prenom,ddn,ndt,email,id,idR,matricule) values ('" + u.getNom()
@@ -94,35 +91,30 @@ public class DAO {
 				+ u.getEmail() + "','" + u.getId() + "'," + u.getidR() + ",'" + u.getMatricule() + "')");
 		SqlData.disconection();
 	}
-
 	public static void updateAuthentification(String id, String login, String password) {
 		SqlData.connection();
 		SqlData.miseAJour(
 				"update authentification set login='" + login + "',password='" + password + "' where id='" + id + "';");
 		SqlData.disconection();
 	}
-
 	public static void updateAuthentification(Authentification a) {
 		SqlData.connection();
 		SqlData.miseAJour("update authentification set login='" + a.getLogin() + "',password='" + a.getPassword()
 				+ "' where id='" + a.getId() + "';");
 		SqlData.disconection();
 	}
-
 	public static void creeVehicule(Vehicule v) {
 		SqlData.connection();
 		SqlData.miseAJour("insert into vehicules (matricule,marque,ndp) values ('" + v.getMatricule() + "','"
 				+ v.getMarque() + "'," + v.getNdp() + ")");
 		SqlData.disconection();
 	}
-
 	public static void creeVehicule(String matricule, String marque, int ndp) {
 		SqlData.connection();
 		SqlData.miseAJour("insert into vehicules (matricule,marque,ndp) values ('" + matricule + "','" + marque + "',"
 				+ ndp + ")");
 		SqlData.disconection();
 	}
-
 	public static boolean usedId(String id) {
 		SqlData.connection();
 		ResultSet rs = SqlData.selectQuery("select * from authentification where lower(id)=lower('" + id + "');");
@@ -143,7 +135,6 @@ public class DAO {
 			return true;
 		}
 	}
-
 	public static boolean existId(String id) {
 		SqlData.connection();
 		ResultSet rs = SqlData.selectQuery("select * from authentification where lower(id)=lower('" + id + "');");
@@ -159,11 +150,10 @@ public class DAO {
 		SqlData.disconection();
 		return false;
 	}
-
 	public static List<String> toutLesRegion() {
 		List<String> regions = new ArrayList<>();
 		SqlData.connection();
-		ResultSet rs = SqlData.selectQuery("select nomR from regions");
+		ResultSet rs = SqlData.selectQuery("select nomR from regions order by nomR");
 		try {
 			while (rs.next()) {
 				regions.add(rs.getString("nomR"));
@@ -175,7 +165,6 @@ public class DAO {
 		SqlData.disconection();
 		return regions;
 	}
-
 	public static int creeCartier(String nomC, int idR) {
 		SqlData.connection();
 		ResultSet rs = SqlData.selectQuery("select * where lower(nomC)=lower('" + nomC + "')and idR=" + idR + ";");
@@ -196,7 +185,6 @@ public class DAO {
 		SqlData.disconection();
 		return i;
 	}
-
 	public static int creeCartier(Cartiers c) {
 		SqlData.connection();
 		ResultSet rs = SqlData.selectQuery(
@@ -219,7 +207,6 @@ public class DAO {
 		SqlData.disconection();
 		return i;
 	}
-
 	public static boolean existLogin(String login) {
 		boolean b = false;
 		SqlData.connection();
@@ -234,7 +221,6 @@ public class DAO {
 		SqlData.disconection();
 		return b;
 	}
-
 	public static boolean existMatricule(String matricule) {
 		boolean b = false;
 		SqlData.connection();
@@ -249,7 +235,6 @@ public class DAO {
 		SqlData.disconection();
 		return b;
 	}
-
 	public static boolean existEmail(String email) {
 		boolean b = false;
 		SqlData.connection();
@@ -264,7 +249,6 @@ public class DAO {
 		SqlData.disconection();
 		return b;
 	}
-
 	public static boolean existndt(long ndt) {
 		boolean b = false;
 		SqlData.connection();
@@ -279,7 +263,6 @@ public class DAO {
 		SqlData.disconection();
 		return b;
 	}
-
 	public static Vehicule getVehicule(String matricule) {
 		SqlData.connection();
 		ResultSet rs = SqlData.selectQuery("select * from vehicules where lower(matricule)=lower('" + matricule + "');");
@@ -294,7 +277,6 @@ public class DAO {
 		}
 		return v;
 	}
-
 	public static void creeTraget(Trajet t) {
 		SqlData.connection();
 		SqlData.miseAJour(
@@ -304,8 +286,7 @@ public class DAO {
 						+ t.getIdCartierArrive() + ");");
 		SqlData.disconection();
 	}
-
-	public static List<Trajet> rechercherTrajets(int idDepart, int idArrive) {
+    public static List<Trajet> rechercherTrajets(int idDepart, int idArrive) {
 		SqlData.connection();
 		ResultSet rs = SqlData
 				.selectQuery("select * from trajets where idCartierDepart in (select idC from cartiers where idR="
@@ -323,7 +304,6 @@ public class DAO {
 		SqlData.disconection();
 		return t;
 	}
-
 	public static List<Trajet> allTrajet() {
 		SqlData.connection();
 		ResultSet rs = SqlData.selectQuery("select * from trajets order by dateDepart;");
@@ -339,7 +319,6 @@ public class DAO {
 		SqlData.disconection();
 		return t;
 	}
-
 	public static String getRegionByCartier(int idC) {
 		SqlData.connection();
 		ResultSet rs = SqlData
@@ -356,7 +335,6 @@ public class DAO {
 		SqlData.disconection();
 		return s;
 	}
-
 	public static String getUtilisateur(int id) {
 		SqlData.connection();
 		ResultSet rs = SqlData.selectQuery("select nom,prenom from utilisateurs where idU=" + id + ";");
@@ -374,7 +352,6 @@ public class DAO {
 		SqlData.disconection();
 		return s + " " + p;
 	}
-
 	public static Trajet getTrajetById(int id) {
 		SqlData.connection();
 		ResultSet rs = SqlData.selectQuery("select * from trajets where idT=" + id + ";");
@@ -390,7 +367,6 @@ public class DAO {
 		SqlData.disconection();
 		return t;
 	}
-
 	public static String getCartierName(int id) {
 		SqlData.connection();
 		ResultSet rs = SqlData.selectQuery("select nomC from cartiers where idC=" + id + ";");
@@ -402,17 +378,14 @@ public class DAO {
 			s = null;
 			e.printStackTrace();
 		}
-
 		SqlData.disconection();
 		return s;
 	}
-
 	public static void creeReservation(Reservation r) {
 		SqlData.connection();
 		SqlData.miseAJour("insert into reservations (idT,idU) values (" + r.getIdT() + "," + r.getIdU() + ");");
 		SqlData.disconection();
 	}
-
 	public static Vehicule getVehiculeByIdU(int idU) {
 		// cette fonction est utilisé pour savoir la voiture d'un constructeur
 		SqlData.connection();
@@ -430,7 +403,6 @@ public class DAO {
 		SqlData.disconection();
 		return t;
 	}
-
 	public static int nbrDePassager(int idT) {
 		int i = 0;
 		SqlData.connection();
@@ -446,7 +418,6 @@ public class DAO {
 		SqlData.disconection();
 		return i;
 	}
-
 	public static List<Reservation> getReservationByCreator(int idU) {
 		List<Reservation> l = new ArrayList<>();
 		SqlData.connection();
@@ -625,5 +596,4 @@ public class DAO {
 		SqlData.disconection();
 		return t;
 	}
-	
 }

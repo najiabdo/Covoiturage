@@ -26,6 +26,54 @@
     />
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+    <style type="text/css">
+    h1
+    {
+      color: white;
+	  font-family: "Montserrat", sans-serif;
+	  font-size: 30px;
+	  font-weight: 800;
+	  text-transform: uppercase;
+	  padding-top:20px;
+	  text-decoration:underline;
+	  text-align:center;
+    
+    }
+    th, a
+    {
+      color: white;
+	  font-family: "Montserrat", sans-serif;
+	  font-size: 18px;
+	  font-weight: 500;
+	  text-transform: uppercase;
+	  padding-right:20px;
+    }
+   
+    td
+    {
+      background-color:white;
+      border:2px solid #2c79a7;
+      color: black;
+	  font-family: "Montserrat", sans-serif;
+	  font-size: 15px;
+	  font-weight: 700;
+	  text-transform: uppercase;
+      padding:10px 20px;
+      width:15%;
+    }
+    
+    .contenaire
+    {
+       background-color: rgb(60, 36, 122);
+    }
+	table
+	{
+	padding: 80px 10px;
+	}
+	thead{
+	padding-bottom: 20px;
+	}
+    </style>
 </head>
 <body>
 <%List<Reservation> r=(List<Reservation>)ses.getAttribute("reservation"); %>
@@ -75,53 +123,64 @@
           <%} %>
         </ul>
       </nav>
-<table>
-	<tr>
-		<td>
+ <div class="contenaire">
+ <h1>gerer les reservations</h1>
+ <div style="display: flex;justify-content: space-around;">
+<table style="width:80%;">
+	 <tr>
+		<th>
 		date de reservation
-		</td>
-		<td>
+		</th>
+		<th>
 		la personne
-		</td>
-		<td>
-		trajet
-		</td>
-		<td colspan="2">
+		</th>
+		<th>
+		depart
+		</th>
+		<th>
+		arrivé
+		</th>
+		<th colspan="2">
 		/
-		</td>
-		<td>
+		</th>
+		<th>
 		Statut
-		</td>
-	</tr>
+		</th>
+	  <tr>
 	<%for(int i=0;i<r.size();i++){ %>
 	<tr>
 		<td>
 			<%=r.get(i).getDdReservation() %>
 		</td>
 		<td>
-			<a href="Profil?id=<%=r.get(i).getIdU()%>"><%=DAO.getUtilisateur(r.get(i).getIdU()) %></a>
+			<a style="color:blue;" href="Profil?id=<%=r.get(i).getIdU()%>"> <%=DAO.getUtilisateur(r.get(i).getIdU()) %></a>
 		</td>
 		<td>
-			<%=r.get(i).getIdT() %>
+		    <%=DAO.getRegionByCartier((DAO.getTrajetById(r.get(i).getIdT())).getIdCartierDepart()) %>
 		</td>
 		<td>
-			<a href="ConsulterReservation?confirm=oui&id=<%=r.get(i).getIdR()%>">Accepter</a>
+			<%=DAO.getRegionByCartier((DAO.getTrajetById(r.get(i).getIdT())).getIdCartierArrive()) %>
 		</td>
 		<td>
-			<a href="ConsulterReservation?confirm=non&id=<%=r.get(i).getIdR()%>">Refuser</a>
+			<a style="color:green;" href="ConsulterReservation?confirm=oui&id=<%=r.get(i).getIdR()%>">Accepter</a>
+		</td>
+		<td>
+			<a style="color:red;" href="ConsulterReservation?confirm=non&id=<%=r.get(i).getIdR()%>">Refuser</a>
 		</td>
 		<td>
 		    <%if(r.get(i).getEtat()==0){%>
-		    <p>En attente</p>
+		    <p style="color:yellow;">En attente</p>
 		    <%}else if(r.get(i).getEtat()==1){%>
-		    <p>accepted</p>
+		    <p style="color:green;">accepted</p>
 		     <%}else if(r.get(i).getEtat()==2){%>
-		     <p>refused</p>
+		     <p style="color:red;">refused</p>
 		     <%} %>
 		</td>
 	</tr>
 	<%} %>
 </table>
+</div>
+</div>
     <footer>
       <div>
         <img src="images/icon.jpg" alt="" />
