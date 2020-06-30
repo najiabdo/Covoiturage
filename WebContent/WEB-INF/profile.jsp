@@ -136,12 +136,30 @@
 	.lien
 	{
 	display:flex;
-	justify-content:space-between;
+	justify-content:space-around;
 	padding: 60px 0px;
+	}
+	.lien>a
+	{
+	color:white;
+	font-size: 25px;
 	}
 	pre
 	{
 	display:inline;
+	}
+	.pdp{
+	display:block;
+	text-align: center;
+	}
+	.pdp>img
+	{
+	padding:0px;
+	margin:0px;
+	border-radius: 50px;
+	width:250px;
+	height:250px;
+	object-fit: fill;
 	}
     </style>
 
@@ -195,12 +213,14 @@
       </nav>
       <div class="contenaire">
       <h1>profile</h1>
-      <div>
+      <div style="padding-left:40px;">
          <ul>
-         
+         <li class="pdp">
+             <img alt="" src="images/<%=u.getIdU() %>.jpg">
+         </li>
          <li>
 	         <pre>Nom et Prenom              :</pre><h3> <%=u.getNom()%> <%=u.getPrenom()%>  </h3>
-	         <span style="cursor: pointer;color: #2c79a7;" id="m1">Modifier</span>
+	         <span style="cursor: pointer;color: yellow;" id="m1">Modifier</span>
 	         <form method="post" action="UpdateUserData?m=m1" id="m1m">
 		         <input type="text" placeholder="nom" name="nom" value="<%=u.getNom()%>" required>
 		         <input type="text" placeholder="prenom" name="prenom" value="<%=u.getPrenom()%>" required>
@@ -210,7 +230,7 @@
          
          <li>
          <pre>Date de naissance          :</pre> <h3><%=u.getDdn()%>    </h3>
-         <span style="cursor: pointer;color: #2c79a7;" id="m2">Modifier</span>
+         <span style="cursor: pointer;color: yellow;" id="m2">Modifier</span>
 	         <form method="post" action="UpdateUserData?m=m2" id="m2m">
 	         	<input type="date" placeholder="19-09-1999" name="ddn" value="<%=u.getDdn()%>" required>
 	         	<input type="submit" value="valider">
@@ -218,7 +238,7 @@
          </li>
          <li>
          <pre>Numero de telephone        :</pre><h3>0<%=u.getNdt() %>   </h3>
-         <span style="cursor: pointer;color: #2c79a7;" id="m3">Modifier</span>
+         <span style="cursor: pointer;color: yellow;" id="m3">Modifier</span>
        	     <form method="post" action="UpdateUserData?m=m3" id="m3m">
 	         	<input type="numbre" placeholder="06XXXXXXXX" name="ndt" value="0<%=u.getNdt() %>" required>
 	         	<input type="submit" value="valider">
@@ -226,7 +246,7 @@
          </li>
          <li>
          <pre>Email                      :</pre><h3><%=u.getEmail() %>   </h3>
-         <span style="cursor: pointer;color: #2c79a7;" id="m4">Modifier</span>
+         <span style="cursor: pointer;color: yellow;" id="m4">Modifier</span>
        		 <form method="post" action="UpdateUserData?m=m4" id="m4m">
 	         	<input type="email" placeholder="xyz@domaine.com" name="email" value="<%=u.getEmail() %> " required>
 	         	<input type="submit" value="valider">
@@ -234,7 +254,7 @@
          </li>
          <li>
          <pre>Region de residence        :</pre><h3><%=DAO.getRegionById(u.getidR())%>  </h3> 
-         <span style="cursor: pointer;color: #2c79a7;" id="m5">Modifier</span>
+         <span style="cursor: pointer;color: yellow;" id="m5">Modifier</span>
              <form method="post" action="UpdateUserData?m=m5" id="m5m">
 	         	<% List<String> regions=DAO.toutLesRegion(); %>
                 <select name="region">
@@ -248,7 +268,7 @@
          <%if(!u.getMatricule().equalsIgnoreCase("**")){ %>
          <li>
          <pre>Voiture                    : </pre><h3><%=(DAO.getVehicule(u.getMatricule())) %>  </h3>
-         <span style="cursor: pointer;color: #2c79a7;" id="m6">Modifier</span>
+         <span style="cursor: pointer;color: yellow;" id="m6">Modifier</span>
 	         <form method="post" action="UpdateUserData?m=m6" id="m6m">
 		         	<input type="text" placeholder="Matricule" name="matricule" required>
 		         	<input type="text" placeholder="marque" name="marque" required>
@@ -257,12 +277,20 @@
 		     </form>
          </li>
          <%} %>
-         
+         <%if(ses.getAttribute("utilisateur")!=null ) {%>
+         <li>
+         <pre >Evaluation                 : </pre>
+         <h3>
+         <a href="Evaluation?idU=<%=u.getIdU()%>&eva=true" style="color:green;"><span class="material-icons" style="color:green;">thumb_up</span><%=(int)request.getAttribute("like") %></a>
+         <a href="Evaluation?idU=<%=u.getIdU()%>&eva=false" style="color:red;"><span class="material-icons" style="color:red;">thumb_down</span><%=(int)request.getAttribute("dislike") %></a>
+         </h3>
+         </li>
+         <%} %>
          <li>
          <%if(ses.getAttribute("utilisateur")!=null && u.getIdU()==((Utilisateur)ses.getAttribute("utilisateur")).getIdU()) {%>
          <pre>mot de passe               :</pre>
          <%} %>
-         <span style="cursor: pointer;color: #2c79a7;" id="m7"> changer mon mot de passe</span>
+         <span style="cursor: pointer;color: yellow;" id="m7"> changer mon mot de passe</span>
              <form method="post" action="UpdateUserData?m=m7" id="m7m">
 	         	<input type="password" name="password" required>
 	         	<input type="submit" value="valider">

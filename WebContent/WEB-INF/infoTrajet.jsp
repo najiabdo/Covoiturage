@@ -39,7 +39,7 @@
     }
     p
     {
-      color: green;
+      color: yellow;
 	  font-family: "Montserrat", sans-serif;
 	  font-size: 24px;
 	  font-weight: 500;
@@ -61,7 +61,7 @@
     } 
     h2
     {
-      color: green;
+      color: yellow;
 	  font-family: "Montserrat", sans-serif;
 	  font-size: 27px;
 	  font-weight: 500;
@@ -86,6 +86,7 @@
     .contenaire
     {
        background-color: rgb(60, 36, 122);
+       text-align: center;
     }
     </style>
 </head>

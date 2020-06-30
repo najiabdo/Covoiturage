@@ -153,7 +153,7 @@ public class DAO {
 	public static List<String> toutLesRegion() {
 		List<String> regions = new ArrayList<>();
 		SqlData.connection();
-		ResultSet rs = SqlData.selectQuery("select nomR from regions order by nomR");
+		ResultSet rs = SqlData.selectQuery("select nomR from regions");
 		try {
 			while (rs.next()) {
 				regions.add(rs.getString("nomR"));

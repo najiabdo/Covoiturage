@@ -1,6 +1,8 @@
 package servlets;
 
 import java.io.IOException;
+import java.text.ParseException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -42,7 +44,7 @@ protected void service(HttpServletRequest request, HttpServletResponse response)
     	   Vehicule v=(Vehicule) ses.getAttribute("vehicule");
     	   if(v==null)
     	   {
-    		   //retour vers la page d'acceuil avec message d'erreur vous n'etes pas un conducteur
+    		   response.sendRedirect("acceuil.jsp");
     	   }
     	   else
     	   {
@@ -53,11 +55,20 @@ protected void service(HttpServletRequest request, HttpServletResponse response)
                    Cartiers cArrive=new Cartiers(request.getParameter("cartierArrive"), Integer.parseInt(request.getParameter("regionArrive")));
                    int idd=DAO.creeCartier(cDepart);
                    int ida=DAO.creeCartier(cArrive);
-                   System.out.println(idd+""+ida);
-    			   Trajet t=new Trajet(request.getParameter("bagage").equalsIgnoreCase("oui"),Integer.parseInt(request.getParameter("prix")),request.getParameter("ddDepart"),u.getIdU(),idd,ida);
-    			   DAO.creeTraget(t);
-    			   request.setAttribute("erreur", "cree avec succes");
-    			   getServletContext().getRequestDispatcher("/WEB-INF/creeTrajet.jsp").forward(request, response);
+                   try {
+					if(Tools.validTrajetDate(request.getParameter("ddDepart"))) {
+					   Trajet t=new Trajet(request.getParameter("bagage").equalsIgnoreCase("oui"),Integer.parseInt(request.getParameter("prix")),request.getParameter("ddDepart"),u.getIdU(),idd,ida);
+					   DAO.creeTraget(t);
+					   request.setAttribute("erreur", "cree avec succes");
+					   getServletContext().getRequestDispatcher("/WEB-INF/creeTrajet.jsp").forward(request, response);
+					   }else {
+						   request.setAttribute("erreur", "Date invalide");
+						   getServletContext().getRequestDispatcher("/WEB-INF/creeTrajet.jsp").forward(request, response);
+					   }
+				   } catch (Exception e) {
+					e.printStackTrace();
+			        } 
+    			   
     		   }else {
     			   //erreur
     			   getServletContext().getRequestDispatcher("/WEB-INF/creeTrajet.jsp").forward(request, response);

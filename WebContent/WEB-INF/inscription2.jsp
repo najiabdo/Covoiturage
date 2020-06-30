@@ -185,7 +185,6 @@ a=(String)ses.getAttribute("id"); %>
                <input type="text" name="marque" placeholder="marque"/>
                <input type="number" name="ndp" placeholder="nombre de place"/>
             </div>
-            
             <input type="submit" value="S'inscrire" />
          </div>
          </div>

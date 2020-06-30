@@ -95,7 +95,7 @@ protected void service(HttpServletRequest req, HttpServletResponse resp) throws 
 		        		request.setAttribute("utilisateur", u);
 		        		break;
 		        	}
-		        	getServletContext().getRequestDispatcher("/WEB-INF/profile.jsp").forward(request, response);
+		        	response.sendRedirect("Profil?id="+u.getIdU());
 		        }
 	        	
          }else {
